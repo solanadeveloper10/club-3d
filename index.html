@@ -1,0 +1,736 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!--	
+
+	©FRACTAL FANTASY 2021
+	If you want to use this code for your project please email info@fractalfantasy.net
+	
+
+-->
+
+<head>
+    <title>CLUB SIMULATOR</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Online Commmunity Space">
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="FF Club">
+
+
+
+    <meta property="og:title" content="CLUB SIMULATOR">
+    <meta property="og:type" content="article">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image" content="https://fractalfantasy.net/img/TwitterCardClub2.jpg">
+    <!-- <meta property="og:image" content="https://fractalfantasy.net/img/twittercard.jpg" /> -->
+    <meta property="og:url" content="https://club.fractalfantasy.net">
+    <meta property="og:description" content="">
+
+    <!-- for Twitter -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta name="twitter:card" content="summary_large_image" /> -->
+    <meta name="twitter:title" content="Fractal Fantasy">
+    <meta name="twitter:description" content="CLUB SIMULATOR">
+    <!-- <meta name="twitter:image" content="https://fractalfantasy.net/img/twittercard2.jpg" /> -->
+    <meta name="twitter:image" content="https://fractalfantasy.net/img/TwitterCardClub2.jpg">
+
+
+
+
+
+    <link href="ffplayer/ffplayer3.css" rel="stylesheet">
+    <style>
+        #stats {
+            position: absolute;
+            opacity: 0.9;
+            z-index: 5;
+            top: 5px;
+            left: 5px;
+        }
+        
+        @media screen {
+            @font-face {
+                font-family: 'Yo';
+                src: url('font/impact.eot');
+                /* IE9 Compat Modes */
+                src: url('font/impact-1.eot') format('embedded-opentype'), /* IE6-IE8 */
+                /* url('impact.woff2') format('woff2'), Super Modern Browsers */
+                url('font/impact.woff') format('woff'), /* Pretty Modern Browsers */
+                url('font/impact.ttf') format('truetype'), /* Safari, Android, iOS */
+                url('font/impact.svg') format('svg');
+                /* Legacy iOS */
+            }
+        }
+        
+        @media (max-width: 420px) {
+            #chatlog {
+                margin-top: 76px;
+            }
+            #tabbutton {
+                opacity: 0;
+                display: none;
+            }
+        }
+        
+        @media (min-width: 421px) {
+            #chatlog {
+                bottom: 100px;
+            }
+        }
+        
+        #stats #fps {
+            background: transparent !important
+        }
+        
+        #stats #fps #fpsText {
+            color: #aaa !important
+        }
+        
+        #stats {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.8 !important;
+            z-index: 5;
+        }
+        
+        #stats #fps {
+            background: transparent !important;
+        }
+        
+        .youtubeButton {
+            width: 70px;
+            height: 50px;
+            top: calc(50% -35px);
+            right: calc(50% -25px);
+        }
+        
+        #stats #fps #fpsText {
+            color: #aaa !important;
+            opacity: 0.2
+        }
+        
+        #stats #fps #fpsGraph {
+            display: none !important
+        }
+        
+        #stats #ms {
+            background: transparent !important
+        }
+        
+        #stats #ms #msGraph {
+            display: none !important
+        }
+        
+        body {
+            font-family: Monospace;
+            background-color: #000;
+            color: #fff;
+            margin: 0px;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            margin-top: 0;
+            margin: 0;
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+        
+        #container {
+            font-family: Monospace;
+            margin: 0px;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            opacity: 0.4;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        input,
+        input:before,
+        input:after {
+            -webkit-user-select: initial;
+            -khtml-user-select: initial;
+            -moz-user-select: initial;
+            -ms-user-select: initial;
+            user-select: initial;
+        }
+        
+        a {
+            color: white;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            filter: drop-shadow(0px 0px 4px grey) drop-shadow(0px 0px 2px white);
+        }
+        
+        h {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            /* font-weight: bold; */
+            filter: drop-shadow(0px 0px 4px blue) drop-shadow(0px 0px 2px white);
+        }
+        
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            /* 50%{opacity: 0;} */
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        .topform {
+            z-index: 3;
+            position: absolute;
+            left: 70px;
+            right: 70px;
+            font-size: 90;
+            margin-top: 10px;
+        }
+        
+        .topform input {
+            outline: none;
+            box-sizing: border-box;
+            line-height: 1;
+            padding: 10px 49px 10px 20px;
+            background: #000000;
+            color: white;
+            border-radius: 100px;
+            border: 1px solid #ccc;
+            margin-top: 0px;
+            z-index: 9999;
+            font-size: x-large;
+            width: 100%;
+            height: 45px;
+        }
+        
+        .topform button {
+            border-radius: 100px;
+            padding: 10px 10px;
+            margin: 2;
+            outline: none;
+            color: #fff;
+            background: #0008ff;
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            border: 0;
+            bottom: 3px;
+            cursor: default;
+        }
+        
+        #tabbutton {
+            font-weight: normal;
+            border-radius: 2px;
+            padding: 3px 3px;
+            margin: 8;
+            outline: none;
+            color: black;
+            background: grey;
+            opacity: 0.5;
+            position: absolute;
+            right: 17px;
+            top: 11px;
+            border: 0;
+            bottom: 11px;
+            cursor: default;
+        }
+        
+        #loading-screen {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2b2b2b;
+            opacity: 0.5;
+            transition: 1s opacity;
+            pointer-events: none;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        #loader {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #b0b0b0;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        
+        #tablediv {
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #bababa;
+            -webkit-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+        
+        #loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #e3e3e3;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        
+        .button {
+            cursor: pointer;
+            /* border: solid 1px white; */
+            /* max-width:70%; */
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        
+        #play_button {
+            max-width: 400px;
+            /* width: 400px;
+            width: 400; */
+            /*    top: -20px;*/
+            display: block;
+            top: calc(50% - 100px);
+            z-index: 100;
+            position: absolute;
+            /* max-width: 89%; */
+            margin: auto;
+            /* background-color:black; */
+            /* top: -50px; */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            filter: drop-shadow(1px 1px 4px #595959) drop-shadow(2px 2px 1px white)drop-shadow(2px 2px 4px #595959) drop-shadow(0px 0px 10px white);
+            /* filter: drop-shadow(4px 4px 10px black) drop-shadow(0px 0px 40px #000000)drop-shadow(0px 0px 30px #000000);
+            */
+        }
+        
+        #play_button:hover {
+            filter: drop-shadow(2px 2px 2px #bac3fe) drop-shadow(2px 2px 1px white) drop-shadow(2px 2px 1px #bac3fe) drop-shadow(2px 2px 19px #bac3fe);
+            /*opacity:0.5;*/
+        }
+        
+        #play_button:active {
+            filter: drop-shadow(2px 2px 2px #8999fc) drop-shadow(2px 2px 1px white) drop-shadow(2px 2px 1px #8999fc) drop-shadow(2px 2px 20px #8999fc);
+            /*filter: drop-shadow(4px 4px 20px blue); */
+            /*      opacity:0.2;*/
+        }
+        
+        #play_overlay {
+            position: absolute;
+            font-family: Avenir, Helvetica, Arial, Sans-serif;
+            /*font-size: 5em;*/
+            text-align: center;
+            top: 0em;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            /* background-image: url('img/poster.jpg'); */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            /* display: none; */
+        }
+        
+        .unselectable {
+            -webkit-user-select: none;
+            /* Chrome all / Safari all */
+            -moz-user-select: none;
+            /* Firefox all */
+            -ms-user-select: none;
+            /* IE 10+ */
+            user-select: none;
+            /* Likely future */
+        }
+        
+        #webgl {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            /* pointer-events: none; */
+            /* z-index: -1000000000000; */
+            /* pointer-events: none; */
+        }
+        
+        #css {
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        span.stretch {
+            display: inline-block;
+            -webkit-transform: scale(2, 1);
+            /* Safari and Chrome */
+            -moz-transform: scale(2, 1);
+            /* Firefox */
+            -ms-transform: scale(2, 1);
+            /* IE 9 */
+            -o-transform: scale(2, 1);
+            /* Opera */
+            transform: scale(2, 1);
+            /* W3C */
+        }
+        
+        span.stretchRight {
+            display: inline-block;
+            -webkit-transform: scale(1.5, 1);
+            /* Safari and Chrome */
+            -moz-transform: scale(1.5, 1);
+            /* Firefox */
+            -ms-transform: scale(1.5, 1);
+            /* IE 9 */
+            -o-transform: scale(1.5, 1);
+            /* Opera */
+            transform: scale(1.5, 1);
+            /* W3C */
+            transform-origin: center right;
+        }
+        
+        span.stretchLeft {
+            display: inline-block;
+            /* display:block; */
+            -webkit-transform: scale(1.5, 1);
+            /* Safari and Chrome */
+            -moz-transform: scale(1.5, 1);
+            /* Firefox */
+            -ms-transform: scale(1.5, 1);
+            /* IE 9 */
+            -o-transform: scale(1.5, 1);
+            transform: scale(1.5, 1);
+            transform-origin: center left;
+        }
+        
+        span.stretchDown {
+            display: inline-block;
+            /* display:block; */
+            -webkit-transform: scale(1.0, 0.4)translateY(-12px);
+            /* Safari and Chrome */
+            -moz-transform: scale(1.0, 0.4)translateY(-12px);
+            /* Firefox */
+            -ms-transform: scale(1.0, 0.4)translateY(-12px);
+            /* IE 9 */
+            -o-transform: scale(1.0, 0.4)translateY(-12px);
+            /* Opera */
+            transform: scale(1.0, 0.4)translateY(-12px);
+            /* W3C */
+            transform-origin: bottom center;
+        }
+        
+        .stretch {
+            display: inline-block;
+            -webkit-transform: scale(2, 1);
+            /* Safari and Chrome */
+            -moz-transform: scale(2, 1);
+            /* Firefox */
+            -ms-transform: scale(2, 1);
+            /* IE 9 */
+            -o-transform: scale(2, 1);
+            /* Opera */
+            transform: scale(2, 1);
+            /* W3C */
+        }
+        
+        .strokeme {
+            color: black;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+        }
+        
+        #image-dropdown {
+            /*style the "box" in its minimzed state*/
+            /* border:1px solid black; 
+			width:200px; height:50px;  */
+            overflow: hidden !important;
+            /*animate collapsing the dropdown from open to closed state (v. fast)*/
+            -moz-transition: height 0.1s;
+            -webkit-transition: height 0.1s;
+            -ms-transition: height 0.1s;
+            -o-transition: height 0.1s;
+            transition: height 0.1s;
+            width: 50px;
+            height: 60px;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+        }
+        
+        #image-dropdown:hover {
+            /*when expanded, the dropdown will get native means of scrolling*/
+            height: 90%;
+            overflow-y: scroll;
+            /*nice and smooth expand - speed this up at your preference or remove animation altogether*/
+            -moz-transition: height 0.5s;
+            -webkit-transition: height 0.5s;
+            -ms-transition: height 0.5s;
+            -o-transition: height 0.5s;
+            transition: height 0.5s;
+        }
+        
+        #image-dropdown input {
+            /*hide the nasty default radio buttons. like, completely!*/
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+        
+        #image-dropdown label {
+            /*style the labels to look like dropdown options, kinda*/
+            display: none;
+            margin: 2px;
+            height: 45px;
+            opacity: 0.8;
+            /*setting correct backgrounds - add additional rules with selectors based on "for" attribute, something like label[for=line2]{background-image:...}*/
+            /* background:url("http://www.google.com/images/srpr/logo3w.png") 50% 50%; */
+            background: url("assets/images/matcap/chrome4.jpg")50%, 50%;
+            background-size: 50px 50px;
+            border-radius: 50%;
+        }
+        
+        #image-dropdown:hover label {
+            /*this is how labels render in the "expanded" state. we want to see only the selected radio button in the collapsed menu, and all of them when expanded*/
+            display: block;
+        }
+        
+        #image-dropdown label:hover {
+            opacity: 0.5;
+        }
+        
+        #image-dropdown input:checked+label {
+            /*tricky! labels immediately following a checked radio button (with our markup they are semantically related) should be fully opaque regardless of hover, and they should always be visible (i.e. even in the collapsed menu*/
+            /* border: 3px solid; */
+            opacity: 1.0 !important;
+            display: block;
+            filter: drop-shadow(0px 0px 2px white);
+        }
+    </style>
+</head>
+
+<body>
+    <!--	
+
+	©FRACTAL FANTASY 2021
+	If you want to use this code for your project please email info@fractalfantasy.net
+	
+
+-->
+
+
+    <script src="libs/three.min.new.js"></script>
+    <script src="libs/virtualjoystick.js"></script>
+    <script src="libs/BufferGeometryUtils.js"></script>
+    <script src="libs/SkeletonUtils.js"></script>
+    <script src="libs/OrbitControls_transformed.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/howler.min.js"></script>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="libs/CSS3DRenderer.js"></script>
+
+    <script src="libs/GLTFLoaderLambert.js"></script>
+
+    <script src="libs/stats.min.js"></script>
+    <script src="ffplayer/ffplayerXzavier2.js"></script>
+    <script src="ffplayer/search-bounds.js"></script>
+
+
+
+
+    <!-- GAME LOGS -->
+    <div id="chatlog" style="display:block;width:100%; pointer-events: none; z-index:200; color:red;margin-left:-0%; width:100%; height: 88px; position:absolute; overflow: auto; text-align: center;">
+    </div>
+    <div id="songlog" style="display:block;width:100%; pointer-events: none; margin-top:60px; z-index:2000; color:red;margin-left:-0%; width:100%; height: 18px; position:absolute; overflow: auto; text-align: center;">
+    </div>
+    <div id="gamelog" style="display:block;width:100%; background-color: rgba(0, 0, 0, 0.8); z-index:2001; top:60px; color:white; height: 120px; position:absolute; overflow: auto;">
+    </div>
+
+
+    <!-- USERNAME & MESSAGE INPUT -->
+    <center>
+        <form autocomplete="off" action="" class="topform" id="msg-form" action="">
+            <input autocomplete="off" id="messageInput" oninput="inputMessage();" maxlength="70" style="opacity:0.7;" onclick="focusOn()" autocomplete="off" placeholder="Message " autocomplete="off">
+            <button id="messageInputbutton" style="z-index:100; display: none;">Enter</button>
+            <button id="tabbutton" style="z-index:99;">TAB</button>
+
+        </form>
+        <form autocomplete="off" class="name topform" id="name-form">
+            <input autocomplete="off" id="nameInput" style="text-transform:normal" oninput="inputName();" maxlength="20" autocomplete="off" placeholder="Username" autocomplete="off">
+            <button id="nameInputbutton" style="z-index:1000;display: none;">SET</button>
+        </form>
+    </center>
+
+    <!-- SHADER BALL DROPDOWN -->
+    <div id="image-dropdown" style="z-index: 10000999;">
+        <input checked="checked" type="radio" id="line0" name="line-style" value="0" oninput="setShader(value);"><label for="line0"></label>
+        <!-- <input type="radio" id="line1" name="line-style" value="1" oninput="setShader(value);"><label
+			for="line1"></label> -->
+        <input type="radio" id="line1" name="line-style" value="1" oninput="setShader(value);"><label for="line1"></label>
+        <input type="radio" id="line2" name="line-style" value="2" oninput="setShader(value);"><label for="line2"></label>
+        <input type="radio" id="line3" name="line-style" value="3" oninput="setShader(value);"><label for="line3"></label>
+        <input type="radio" id="line4" name="line-style" value="4" oninput="setShader(value);"><label for="line4"></label>
+        <!-- <input checked="checked" type="radio" id="line6" name="line-style" value="6" oninput="setShader(value);"><label
+			for="line6"></label> -->
+        <input type="radio" id="line5" name="line-style" value="5" oninput="setShader(value);"><label for="line5"></label>
+        <input type="radio" id="line6" name="line-style" value="6" oninput="setShader(value);"><label for="line6"></label>
+        <!-- <input checked="checked" type="radio" id="line9" name="line-style" value="9" oninput="setShader(value);"><label
+			for="line9"></label> -->
+        <input type="radio" id="line7" name="line-style" value="7" oninput="setShader(value);"><label for="line7"></label>
+        <!-- <input type="radio" id="line11" name="line-style" value="11" oninput="setShader(value);"><label
+			for="line11"></label> -->
+        <input type="radio" id="line8" name="line-style" value="8" oninput="setShader(value);"><label for="line8"></label>
+    </div>
+
+    <!-- LOADING SPINNER -->
+    <section id="loading-screen">
+        <div id="loader"></div>
+    </section>
+    
+    <!-- <button id="unmute">Unmute</button> -->
+    <button id="unmute" style="z-index: 1999999;position: absolute;">Unmute</button>
+    <!-- CSS RENDERER (FOR YOUTUBE) -->
+    <!-- <div id="css" style="pointer-events:none"></div> -->
+    <!-- <button id="unmute" style="z-index: 1999999;position: absolute;">Unmute</button> -->
+    
+        
+      
+        <!-- <div style="position:relative;padding-bottom:56.25%;overflow:hidden;height:0;max-width:100%;"><iframe id="2e71a451-a5d5-4f3b-6a78-e28cee49e141" src="https://iframe.dacast.com/live/47edaabb-9c16-3e0b-89b4-fa8a562e4dbc/2e71a451-a5d5-4f3b-6a78-e28cee49e141" width="100%" height="100%" frameborder="0" scrolling="no" allow="autoplay;encrypted-media" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen style="position:absolute;top:0;left:0;"></iframe></div> -->
+        <!-- <script id="47edaabb-9c16-3e0b-89b4-fa8a562e4dbc-live-2e71a451-a5d5-4f3b-6a78-e28cee49e141" width="100%" height="100%" src="https://player.dacast.com/js/player.js?contentId=47edaabb-9c16-3e0b-89b4-fa8a562e4dbc-live-2e71a451-a5d5-4f3b-6a78-e28cee49e141" class="dacast-video"></script> -->
+        
+    <div id="css" style="display: block;z-index: 0;">
+        <div id="youtubeDiv" style="z-index: 199;position: absolute;"> </div>
+        <div id="twitchDiv" style="z-index: 199;position: absolute;"> </div>
+    
+        <!-- <div id="twitchDiv" style="z-index: 1999999;position: absolute;" ></div> -->
+        <!-- <div> -->
+        <!-- <div id="twitchDiv"></div> -->
+        <!-- </div> -->
+        <!-- <div id="youtubeDiv" style="width: 100%; height:100%; background-size: contain;background-position:center;background-repeat:no-repeat"></div> -->
+        <!-- <div id="youtubeDiv"> 
+            <button id="unmute" style="z-index: 1999999;position: absolute;">Unmute</button>
+          
+         
+        </div> -->
+        <!-- <iframe src="https://vimeo.com/event/3510683/embed/3fcaeb52e4" width="640" height="360" frameborder="0" allow=" fullscreen" allowfullscreen></iframe> -->
+    </div>
+
+    <!-- WEBGL RENDERER (FOR YOUTUBE) -->
+    <div id="webgl"></div>
+    <!-- <div id="twitch-embed" style="z-index: 1000000;"></div> -->
+
+    <!-- WEBGL RENDERER (FOR YOUTUBE) -->
+    <!-- <div id="play_overlay" class="unselectable"> -->
+    <div id="play_button" style="padding:20px; display: none;" class="unselectable" class="button">
+        <img style="width:100%; margin: 0 auto;" class="unselectable" src="assets/images/START5.png">
+    </div>
+    <!-- </div> -->
+    <!-- <script src="https://player.dacast.com/js/player.js?contentId=47edaabb-9c16-3e0b-89b4-fa8a562e4dbc-live-2e71a451-a5d5-4f3b-6a78-e28cee49e141"></script> -->
+    <!-- <script src="https://player.twitch.tv/js/embed/v1.js"></script> -->
+    <script src="embed/v1.js"></script>
+    <script src="clubtwitch.js"></script>
+    <script>
+        window.packet = [];
+        window.getRecordedPacketString = () => {
+            let txtexport = "";
+
+            window.packet.forEach((data) => {
+                txtexport += JSON.stringify(data) + "%";
+            });
+
+            return txtexport;
+        }
+        window.game = game;
+        window.totalticks = 0;
+        window.tickspersecond = 0;
+    </script>
+    
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+Uri: https://club.fractalfantasy.net/
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\index.htm
+Content Type: text/html
+
+Uri: https://club.fractalfantasy.net/assets/images/matcap/chrome4.jpg
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\assets\images\matcap\chrome4.jpg
+Content Type: image/jpeg
+
+Uri: https://club.fractalfantasy.net/assets/images/START5.png
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\assets\images\START5.png
+Content Type: image/png
+
+Uri: https://club.fractalfantasy.net/clubtwitch.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\clubtwitch.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/ffplayer/ffplayer3.css
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\ffplayer3.css
+Content Type: text/css
+
+Uri: https://club.fractalfantasy.net/ffplayer/ffplayerXzavier2.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\ffplayerXzavier2.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/ffplayer/img/fwd.svg
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\img\fwd.svg
+Content Type: image/svg+xml
+
+Uri: https://club.fractalfantasy.net/ffplayer/img/loading.gif
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\img\loading.gif
+Content Type: image/gif
+
+Uri: https://club.fractalfantasy.net/ffplayer/img/opt/pause.png
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\img\opt\pause.png
+Content Type: image/png
+
+Uri: https://club.fractalfantasy.net/ffplayer/img/opt/play.png
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\img\opt\play.png
+Content Type: image/png
+
+Uri: https://club.fractalfantasy.net/ffplayer/search-bounds.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\ffplayer\search-bounds.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/font/impact.eot
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\font\impact.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://club.fractalfantasy.net/font/impact.eot?
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\font\impact-1.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://club.fractalfantasy.net/font/impact.svg
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\font\impact.svg
+Content Type: image/svg+xml
+
+Uri: https://club.fractalfantasy.net/font/impact.ttf
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\font\impact.ttf
+Content Type: font/ttf
+
+Uri: https://club.fractalfantasy.net/font/impact.woff
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\font\impact.woff
+Content Type: font/woff
+
+Uri: https://club.fractalfantasy.net/libs/BufferGeometryUtils.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\BufferGeometryUtils.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/CSS3DRenderer.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\CSS3DRenderer.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/GLTFLoaderLambert.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\GLTFLoaderLambert.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/howler.min.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\howler.min.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/jquery.min.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\jquery.min.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/OrbitControls_transformed.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\OrbitControls_transformed.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/SkeletonUtils.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\SkeletonUtils.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/stats.min.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\stats.min.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/three.min.new.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\three.min.new.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/libs/virtualjoystick.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\libs\virtualjoystick.js
+Content Type: application/javascript
+
+Uri: https://club.fractalfantasy.net/socket.io/socket.io.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\socket.io\socket.io.js
+Content Type: application/javascript
+
+Uri: https://embed.twitch.tv/embed/v1.js
+File Name: C:\Downloaded Web Sites\club.fractalfantasy.net\embed\v1.js
+Content Type: application/x-javascript
+
