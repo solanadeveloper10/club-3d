@@ -4,13 +4,24 @@ const cors = require('cors');
 
 const app = express();
 
+// Add CORS middleware
+app.use(cors({
+  origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
   cors: {
     origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
     methods: ["GET", "POST"],
     credentials: true
-  }
+  },
+  transports: ['websocket'],
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 // Store connected players and rooms
@@ -32,15 +43,9 @@ const environmentState = {
 const POSITION_UPDATE_RATE = 16; // ~60fps
 let lastUpdate = {};
 
-// Add CORS middleware
-app.use(cors({
-  origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
-  credentials: true
-}));
-
 // Socket.IO connection handling
 io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
+  console.log('Client connected:', socket.id);
 
   // Send initial state to new connections
   socket.emit('initialState', {
@@ -172,7 +177,7 @@ io.on('connection', (socket) => {
 
   // Handle disconnection
   socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
+    console.log('Client disconnected:', socket.id);
 
     // Remove player from any rooms they were in
     rooms.forEach((players, roomId) => {
