@@ -5636,13 +5636,33 @@ class PlayerLocal extends Player {
         const player = this;
         //   const socket = io.connect("http://localhost:3000");
 
-        const socket = io.connect('http://localhost:3000', {
+        // const socket = io.connect('http://localhost:3000', {
+        //     transports: ['websocket'],
+        //     cors: {
+        //         origin: "http://localhost:5500",
+        //         credentials: true
+        //     }
+        // });
+
+        // Replace it with:
+        const socket = io('https://club-3d-be.onrender.com', {
             transports: ['websocket'],
-            cors: {
-                origin: "http://localhost:5500",
-                credentials: true
-            }
+            upgrade: false,
+            reconnection: true,
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000
         });
+
+        // Keep the error handling
+        socket.on('connect_error', (error) => {
+            console.log('Connection error:', error);
+        });
+
+        socket.on('connect', () => {
+            console.log('Connected to server!');
+        });
+
+
         // const socket = io.connect();
         // console.log('name defined?', name != undefined);
         // console.log('socket connected', socket.connected);
