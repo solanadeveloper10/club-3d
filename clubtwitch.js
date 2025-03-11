@@ -1,6 +1,3 @@
-const ASSET_BASE_URL = 'http://localhost:3000';
-
-
 // new Twitch.Player("twitch-embed", {
 // 	channel: "itmejp"
 // });
@@ -3482,22 +3479,30 @@ class Game {
 
 
     updateRemotePlayers() {
-        if (this.remoteData === undefined || this.remoteData.length == 0 || this.player === undefined || this.player.id === undefined) return;
-        // console.log(this.remoteData);
-        // if (game.player.id === data.id) return;
+        if (this.remoteData === undefined || this.remoteData.length == 0 || this.player === undefined || this.player.id === undefined) {
+            console.log('Skipping update - missing required data:', {
+                hasRemoteData: this.remoteData !== undefined,
+                remoteDataLength: this.remoteData?.length,
+                hasPlayer: this.player !== undefined,
+                playerId: this.player?.id
+            });
+            return;
+        }
+
+        console.log('Updating remote players:', this.remoteData);
+
         const newPlayers = [];
         const game = this;
-        //Get all remotePlayers from remoteData array
         const remotePlayers = [];
         const remoteColliders = [];
 
         this.remoteData.forEach(function (data) {
+            console.log('Processing remote player data:', data);
 
-            //UPDATE REMOTE PLAYER POS
+            // Update existing remote players
             game.remotePlayers.forEach(function (player) {
-
-                // console.log(data);
                 if (player.id == data.id) {
+                    console.log('Updating position for player:', player.id);
                     const euler = new THREE.Euler(data.pb, data.h, data.pb);
                     let lerpedPos = new THREE.Vector3();
                     lerpedPos.x = THREE.Math.lerp(player.object.position.x, data.x, 0.3);
@@ -3507,56 +3512,44 @@ class Game {
                     player.nextrotation = euler;
                     player.nextaction = data.a;
                 }
-
-
             });
 
+            // Handle new players
             if (game.player.id != data.id) {
+                let iplayer = game.initialisingPlayers.find(player => player.id == data.id);
 
-                let iplayer;
-                game.initialisingPlayers.forEach(function (player) {
-                    if (player.id == data.id) iplayer = player;
-                });
+                if (!iplayer) {
+                    let rplayer = game.remotePlayers.find(player => player.id == data.id);
 
-                //If not being initialised check the remotePlayers array
-                if (iplayer === undefined) {
-                    let rplayer;
-                    game.remotePlayers.forEach(function (player) {
-                        if (player.id == data.id) rplayer = player;
-                    });
-
-                    if (rplayer === undefined) {
-                        //Initialise player
+                    if (!rplayer) {
+                        console.log('Initializing new player:', data.id);
                         game.initialisingPlayers.push(new Player(game, data));
-                        // console.log(data);
                     } else {
-
-                        if (data.points != undefined) {
+                        // Update existing remote player
+                        if (data.points !== undefined) {
                             rplayer.speechBubble.updatePoints(data.points);
                         }
-
-                        if (data.name != undefined && !rplayer.speechBubble.nameUpdated) {
+                        if (data.name !== undefined && !rplayer.speechBubble.nameUpdated) {
                             rplayer.speechBubble.updateName(data.name);
-                            // rplayer.speechBubble.updateName(data.name);
                         }
-
                         remotePlayers.push(rplayer);
                         remoteColliders.push(rplayer.collider);
-
                     }
                 }
             }
         });
 
+        // Clean up disconnected players
         this.scene.children.forEach(function (object) {
             if (object.userData.remotePlayer && game.getRemotePlayerById(object.userData.id) == undefined) {
+                console.log('Removing disconnected player object:', object.userData.id);
                 game.scene.remove(object);
             }
         });
 
-        //console.log(remotePlayers);
         this.remotePlayers = remotePlayers;
         this.remoteColliders = remoteColliders;
+        console.log('Remote players after update:', this.remotePlayers.length);
     }
 
     detectCollisionCubes(object1, object2) {
@@ -5662,6 +5655,10 @@ class PlayerLocal extends Player {
             console.log('Connected to server!');
         });
 
+        socket.on('disconnect', (reason) => {
+            console.log('Disconnected:', reason);
+        });
+
 
         // const socket = io.connect();
         // console.log('name defined?', name != undefined);
@@ -5723,10 +5720,13 @@ class PlayerLocal extends Player {
         });
 
         socket.on('remoteData', function (data) {
-            window.totalticks++;
-            window.tickspersecond = window.totalticks / (performance.now() / 1000);
+            console.log('Received remote data:', data);
+            console.log('Loading screen faded:', loadingScreenFaded);
             game.remoteData = data;
-            if (!loadingScreenFaded) return;
+            if (!loadingScreenFaded) {
+                console.log('Loading screen not faded yet, skipping player update');
+                return;
+            }
             game.updateRemotePlayers();
         });
         // socket.on('name', function(data){
@@ -7846,8 +7846,6 @@ function playYoutube() {
     // $("div #youtubeDiv").css("pointer-events", "none");
     // $("div #youtubeDiv").hide();
     // $("div #youtubeDiv").remove();
-    // $("#youtubeDiv").hide();
-    // $("#youtubeDiv").remove();
     // var element = document.getElementById('youtubeDiv');
     // console.log(element);
 
